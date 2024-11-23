@@ -1,9 +1,11 @@
 <?php
 require "functions.php";
-$uri = parse_url($_SERVER["REQUEST_URI"])["path"]; 
-$routes = ["/" => "controllers/index.php", "/about" => "controllers/about.php", "/contact" => "controllers/contact.php"];
-if(array_key_exists($uri, $routes)){
-    require $routes[$uri];
-}else{
-    echo "<h2>404 not found</h2>";
-}
+require "router.php";
+
+$dns = "mysql:host=localhost;port=3306;user=root;dbname=myapp;charset=utf8mb4";
+$pdo = new PDO($dns);
+
+$query = "SELECT * FROM `posts`";
+$statement = $pdo->prepare($query);
+$statement->execute();
+$posts = $statement->fetchAll(PDO::FETCH_ASSOC);
