@@ -1,7 +1,8 @@
 <?php
 use Core\Database;
-$config = require base_path("config.php");
-$pdo = new Database($config["database"]);
+use \Core\App;
+
+$pdo = App::resolver(Database::class);
 $id = $_GET["id"];
 $query = "SELECT * FROM `notes` WHERE id = :id";
 $note = $pdo->query($query, ["id" => $id])->findOrfail();

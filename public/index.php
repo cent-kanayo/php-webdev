@@ -6,6 +6,7 @@ spl_autoload_register(function($class){
     require base_path("{$class}.php");
 });
 
+require base_path("views/boostrap.php");
 $router = new \Core\Router();
 $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
 $routes = require base_path("routes.php");
